@@ -1,0 +1,6 @@
+{
+  "name": "CodeMint AI",
+  "description": "Full-stack mobile AI coding IDE for Android with multi-file code editor, AI studio, cloud builds, and Google authentication.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

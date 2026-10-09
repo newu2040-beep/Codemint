@@ -1,0 +1,108 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "User profile document",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoUrl": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "lastActive": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "email"]
+    },
+    "Project": {
+      "title": "Project",
+      "description": "Coding project metadata",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "projectType": { "type": "string" },
+        "storageMode": { "type": "string" },
+        "lastBuildStatus": { "type": "string" },
+        "filesCount": { "type": "integer" },
+        "createdAt": { "type": "string", "format": "date-time" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "name", "projectType"]
+    },
+    "ProjectFile": {
+      "title": "ProjectFile",
+      "description": "Source code file inside a project",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "projectId": { "type": "string" },
+        "userId": { "type": "string" },
+        "filePath": { "type": "string" },
+        "content": { "type": "string" },
+        "language": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "projectId", "userId", "filePath", "content"]
+    },
+    "BuildJob": {
+      "title": "BuildJob",
+      "description": "Compilation and build worker execution record",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "projectId": { "type": "string" },
+        "projectName": { "type": "string" },
+        "buildVariant": { "type": "string" },
+        "buildEngine": { "type": "string" },
+        "status": { "type": "string" },
+        "logs": { "type": "string" },
+        "artifactName": { "type": "string" },
+        "artifactSize": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "projectId", "projectName", "buildVariant", "buildEngine", "status"]
+    },
+    "AiMessage": {
+      "title": "AiMessage",
+      "description": "AI Coding Assistant conversation history and file proposals",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "projectId": { "type": "string" },
+        "role": { "type": "string" },
+        "mode": { "type": "string" },
+        "content": { "type": "string" },
+        "fileModifications": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "role", "mode", "content"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "Profile information for authenticated user"
+    },
+    "/users/{userId}/projects/{projectId}": {
+      "schema": "Project",
+      "description": "User's development projects"
+    },
+    "/users/{userId}/projects/{projectId}/files/{fileId}": {
+      "schema": "ProjectFile",
+      "description": "Files belonging to a user project"
+    },
+    "/users/{userId}/builds/{buildId}": {
+      "schema": "BuildJob",
+      "description": "Compilation records and APK artifacts for user projects"
+    },
+    "/users/{userId}/ai_messages/{messageId}": {
+      "schema": "AiMessage",
+      "description": "AI Studio assistant chat and diff history for user"
+    }
+  }
+}
